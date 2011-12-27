@@ -16,9 +16,7 @@
         img(src="https://secure.gravatar.com/avatar/#{everyauth.github.user.gravatar_id}")
     div
       a(href="/logout") Sign Out
-  script(src='/js/jquery.js')
   script(src='/socket.io/socket.io.js')
-  script(src='/js/main.js')
 - else
   #login
     #register
@@ -28,12 +26,14 @@
     #loginTwitter
       a.button(href='/auth/twitter')
         img(src='https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png')
-    #loginGoogle
-      a.button(href='auth/google')
-        img(src='https://www.google.com/favicon.ico')
-    #loginFacebook
-      a.button(href='auth/facebook')
-        img(src='http://facebook.com/favicon.ico')
     #loginGithub
       a.button(href='auth/github')
         img(src='http://github.com/intridea/authbuttons/raw/master/png/github_64.png')
+    #loginGoogle
+      span Broken now, for some reason:
+      a.button(href='auth/google')
+        img(src='https://www.google.com/favicon.ico')
+    #loginFacebook
+      span Broken now, for some reason:
+      a.button(href='auth/facebook')
+        img(src='http://facebook.com/favicon.ico')
