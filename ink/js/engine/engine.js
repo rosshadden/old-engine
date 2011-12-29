@@ -1,4 +1,4 @@
-define(['engine/util','engine/input'],function(util,input){
+define(['engine/draw','engine/viewport','engine/input','engine/util',],function(draw,viewport,input,util){
 	var Engine = function(options){
 		var self = this,
 			
@@ -12,14 +12,12 @@ define(['engine/util','engine/input'],function(util,input){
 			},
 			
 			init = (function(){
-				self.bind = util.bind(self);
-				
-				$(window).on({
-					'keydown': function(v){
-						var key = input.keys[v.which];
-						$(self).trigger('key:' + key);
-					}
-				});
+				//	convenient shortcuts
+				self.bind = {
+					'event':util.listen(self),
+					key:	input.keyboard.bind.key,
+					axis:	input.keyboard.bind.axis
+				};
 				
 				execute('init');
 			})(),
@@ -32,6 +30,8 @@ define(['engine/util','engine/input'],function(util,input){
 			
 			draw = (function(){
 				return function(){
+					draw.terrain();
+					
 					execute('draw');
 				};
 			})(),
@@ -56,8 +56,8 @@ define(['engine/util','engine/input'],function(util,input){
 			screen:	screen,
 			input:	input,
 			util:	util,
-			bind:	util.bind(self),
-			start:	start
+			start:	start,
+			bind: 	self.bind
 		},options);
 	};
 	return Engine;

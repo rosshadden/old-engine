@@ -12,7 +12,7 @@ define(function(){
 			return object;
 		},
 			
-		bind: function(context){
+		listen: function(context){
 			return function(){
 				$(context).on.apply($(context),arguments);
 			};
