@@ -32,12 +32,12 @@ var io,
 			app.use(express.static(__dirname + '/ink'));
 		});
 		
-		app.listen(+(process.argv[2] || 80));
+		app.listen(+(process.argv[2] || process.env.PORT || 80));
 		
 		io = require('socket.io').listen(app);
 		io.set('log level',1);
 		
-		console.log('http://localhost:%d | %s',+(process.argv[2] || 80),app.settings.env);
+		console.log('http://localhost:%d | %s',+(process.argv[2] || process.env.PORT || 80),app.settings.env);
 	},
 	serve = function(){
 		init();
