@@ -1,4 +1,5 @@
-define(function(){
+define(['main'],function(engine){
+    console.log(engine);
 	var self = this,
 	
 		x = 0,
@@ -9,8 +10,8 @@ define(function(){
 		},
 		
 		setDimensions = function(){
-			dim.width = ~~(window.innerWidth / world.cell / 2) * world.cell * 2 - 1e2;
-			dim.height = ~~(window.innerHeight / world.cell / 2) * world.cell * 2 - 1e2;
+			dim.width = ~~(window.innerWidth / engine.info.cell.width / 2) * engine.info.cell.width * 2 - 1e2;
+			dim.height = ~~(window.innerHeight / engine.info.cell.height / 2) * engine.info.cell.height * 2 - 1e2;
 		},
 		getDimensions = function(){
 			return {

@@ -1,4 +1,4 @@
-define(function(){
+define(['engine/viewport'],function(viewport){
 	var	self = this,
 		easel = {
 			screen:		$('#screen')[0].getContext('2d'),
@@ -18,6 +18,7 @@ define(function(){
 		},
 		terrain = (function(){
 			easel.screen.fillStyle = '#000000';
+                //console.log(viewport.getDimensions().width,viewport.getDimensions().height);
 			return function(){
 				easel.screen.fillRect(0,0,viewport.getDimensions().width,viewport.getDimensions().height);
 			};

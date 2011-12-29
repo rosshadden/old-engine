@@ -1,6 +1,13 @@
-define(['engine/draw','engine/viewport','engine/input','engine/util',],function(draw,viewport,input,util){
+define(['engine/draw','engine/viewport','engine/input/input','engine/util',],function(draw,viewport,input,util){
 	var Engine = function(options){
 		var self = this,
+			
+			info = {
+			    cell: {
+			        width:  25,
+			        height:  25
+			    }
+			},
 			
 			screen = options.screen || $('canvas')[0],
 			ctx = screen.getContext('2d'),
@@ -12,8 +19,10 @@ define(['engine/draw','engine/viewport','engine/input','engine/util',],function(
 			},
 			
 			init = (function(){
+                viewport.setDimensions(400,200);
+                
 				//	convenient shortcuts
-				self.bind = {
+                self.bind = {
 					'event':util.listen(self),
 					key:	input.keyboard.bind.key,
 					axis:	input.keyboard.bind.axis
@@ -28,7 +37,7 @@ define(['engine/draw','engine/viewport','engine/input','engine/util',],function(
 				};
 			})(),
 			
-			draw = (function(){
+			paint = (function(){
 				return function(){
 					draw.terrain();
 					
@@ -45,7 +54,7 @@ define(['engine/draw','engine/viewport','engine/input','engine/util',],function(
 					&&	requestAnimationFrame(main);
 				
 				update();
-				draw();
+				paint();
 			},
 			
 			start = function(){
@@ -53,6 +62,7 @@ define(['engine/draw','engine/viewport','engine/input','engine/util',],function(
 			};
 		
 		return util.extend({
+			info:	info,
 			screen:	screen,
 			input:	input,
 			util:	util,
