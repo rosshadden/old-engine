@@ -1,19 +1,40 @@
-require(['jquery','engine/engine','engine/entities/player'],function($,Engine,Player){
-	var paddleOne = new Player();
-	
+require(['jquery','engine/engine','entities/player'],function($,Engine,Player){
 	var game = new Engine({
 		screen:	$('#screen')[0],
 		init: function(){
-			this.bind.key('q',function(){
-				console.log('input.key:','q');
+			var self = this;
+
+			self.world.createEntity(Player,{
+				name:	'paddleOne',
+				position: self.world.toXY(1,6)
 			});
-			this.bind.axis('w','s','a','d',function(axis){
-				console.log('input.axis:',axis);
+			self.world.createEntity(Player,{
+				name:	'paddleTwo',
+				position: self.world.toXY(22,6)
 			});
 		},
-		update: function(){},
+		update: function(){
+			var keys = this.input.keyboard.activeKeys();
+			if(keys.length > 0){
+				if(keys.indexOf('w') > -1){
+					this.world.entities.paddleOne.move(-1);
+				}
+				if(keys.indexOf('s') > -1){
+					this.world.entities.paddleOne.move(1);
+				}
+				
+				if(keys.indexOf('up') > -1){
+					this.world.entities.paddleTwo.move(-1);
+				}
+				if(keys.indexOf('down') > -1){
+					this.world.entities.paddleTwo.move(1);
+				}
+			}
+		},
 		paint: function(){
-			paddleOne.draw();
+			for(entity in this.world.entities){
+				this.world.entities[entity].draw();
+			}
 		}
 	});
 	

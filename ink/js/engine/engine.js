@@ -1,7 +1,7 @@
-define(['engine/world','engine/draw','engine/viewport','engine/entities/entity','engine/input/input','engine/util',],function(world,draw,viewport,Entity,input,util){
+define(['engine/world','engine/draw','engine/viewport','entities/entity','engine/input/input','engine/util',],function(world,draw,viewport,Entity,input,util){
 	var Engine = function(options){
-		var self = this,
-			
+		var	self = this,
+		
 			screen = options.screen || $('canvas')[0],
 			ctx = screen.getContext('2d'),
 			
@@ -16,6 +16,9 @@ define(['engine/world','engine/draw','engine/viewport','engine/entities/entity',
                 viewport.setDimensions(600,400);
                 
 				//	convenient shortcuts
+				self.world = world;
+				self.input = input;
+				self.util = util;
                 self.bind = {
 					'event':util.listen(self),
 					key:	input.keyboard.bind.key,
@@ -58,8 +61,9 @@ define(['engine/world','engine/draw','engine/viewport','engine/entities/entity',
 			};
 		
 		return util.extend({
+			world:	self.world,
+			input:	self.input,
 			screen:	screen,
-			input:	input,
 			util:	util,
 			start:	start,
 			bind: 	self.bind

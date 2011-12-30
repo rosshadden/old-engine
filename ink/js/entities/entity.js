@@ -1,8 +1,8 @@
 define(['engine/world','engine/draw'],function(world,draw){
 	var Entity = function(options){
-        world.add_entity(this);
-
 		var self = this;
+		
+        world.add_entity(this);
 		
 		self.dim = {
 			width:	world.cell.width,

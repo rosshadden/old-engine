@@ -43,8 +43,8 @@ define(function(){
 				properties.y,
 				properties.w,
 				properties.h,
-				0,
-				0,
+				properties.position && properties.position.x || 0,
+				properties.position && properties.position.y || 0,
 				properties.width,
 				properties.height
 			);
