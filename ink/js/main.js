@@ -1,4 +1,4 @@
-require(['jquery','engine/engine','engine/entities/entity'],function($,Engine){
+require(['jquery','engine/engine','engine/entities/entity'],function($,Engine,Entity){
 	var game = new Engine({
 		screen:	$('#screen')[0],
 		init: function(){
@@ -8,6 +8,7 @@ require(['jquery','engine/engine','engine/entities/entity'],function($,Engine){
 			this.bind.axis('w','s','a','d',function(axis){
 				console.log('input.axis:',axis);
 			});
+            var paddle_one = new Entity();
 		},
 		update: function(){},
 		draw: function(){}

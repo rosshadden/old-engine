@@ -24,13 +24,14 @@ define(['engine/world','engine/draw','engine/viewport','engine/entities/entity',
 				
 				execute('init');
 			})(),
-			
+
 			update = (function(){
 				return function(){
 					execute('update');
 				};
 			})(),
-			
+
+
 			paint = (function(){
 				return function(){
 					draw.backdrop(viewport.getDimensions().width,viewport.getDimensions().height);
