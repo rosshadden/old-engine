@@ -1,5 +1,4 @@
-define(['main'],function(engine){
-    console.log(engine);
+define(['engine/world','engine/draw'],function(world,draw){
 	var self = this,
 	
 		x = 0,
@@ -9,9 +8,9 @@ define(['main'],function(engine){
 			height:	0
 		},
 		
-		setDimensions = function(){
-			dim.width = ~~(window.innerWidth / engine.info.cell.width / 2) * engine.info.cell.width * 2 - 1e2;
-			dim.height = ~~(window.innerHeight / engine.info.cell.height / 2) * engine.info.cell.height * 2 - 1e2;
+		setDimensions = function(width,height){
+			dim.width = width || ~~(window.innerWidth / world.cell.width / 2) * world.cell.width * 2 - 1e2;
+			dim.height = height || ~~(window.innerHeight / world.cell.height / 2) * world.cell.height * 2 - 1e2;
 		},
 		getDimensions = function(){
 			return {

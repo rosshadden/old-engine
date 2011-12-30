@@ -1,13 +1,6 @@
-define(['engine/draw','engine/viewport','engine/input/input','engine/util',],function(draw,viewport,input,util){
+define(['engine/world','engine/draw','engine/viewport','engine/entities/entity','engine/input/input','engine/util',],function(world,draw,viewport,Entity,input,util){
 	var Engine = function(options){
 		var self = this,
-			
-			info = {
-			    cell: {
-			        width:  25,
-			        height:  25
-			    }
-			},
 			
 			screen = options.screen || $('canvas')[0],
 			ctx = screen.getContext('2d'),
@@ -19,7 +12,8 @@ define(['engine/draw','engine/viewport','engine/input/input','engine/util',],fun
 			},
 			
 			init = (function(){
-                viewport.setDimensions(400,200);
+				draw.setDimensions(600,400);
+                viewport.setDimensions(600,400);
                 
 				//	convenient shortcuts
                 self.bind = {
@@ -39,9 +33,10 @@ define(['engine/draw','engine/viewport','engine/input/input','engine/util',],fun
 			
 			paint = (function(){
 				return function(){
-					draw.terrain();
+					draw.backdrop(viewport.getDimensions().width,viewport.getDimensions().height);
+					draw.cells(600,400,world.cell);
 					
-					execute('draw');
+					execute('paint');
 				};
 			})(),
 			
@@ -62,7 +57,6 @@ define(['engine/draw','engine/viewport','engine/input/input','engine/util',],fun
 			};
 		
 		return util.extend({
-			info:	info,
 			screen:	screen,
 			input:	input,
 			util:	util,

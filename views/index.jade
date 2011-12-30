@@ -2,20 +2,21 @@
   #game
     canvas#screen(width=600, height=400)
   #log
-  #authed
-    - if(everyauth.twitter)
-      span
-        Hi #{everyauth.twitter.user.name} from Twitter!
-      span
-        img(src='#{everyauth.twitter.user.profile_image_url}')
-    - if(everyauth.facebook)
-      span Hi #{everyauth.facebook.user.name} from Facebook!
-    - if(everyauth.github)
-      span Hi #{everyauth.github.user.name} from GitHub!
-      span
-        img(src="https://secure.gravatar.com/avatar/#{everyauth.github.user.gravatar_id}")
-    div
-      a(href="/logout") Sign Out
+  - if(false)
+    #authed
+      - if(everyauth.twitter)
+        span
+          Hi #{everyauth.twitter.user.name} from Twitter!
+        span
+          img(src='#{everyauth.twitter.user.profile_image_url}')
+      - if(everyauth.facebook)
+        span Hi #{everyauth.facebook.user.name} from Facebook!
+      - if(everyauth.github)
+        span Hi #{everyauth.github.user.name} from GitHub!
+        span
+          img(src="https://secure.gravatar.com/avatar/#{everyauth.github.user.gravatar_id}")
+      div
+        a(href="/logout") Sign Out
   script(src='/socket.io/socket.io.js')
   script(src = '/js/require.js','data-main' = 'js/main')
 - else
