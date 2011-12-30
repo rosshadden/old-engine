@@ -1,4 +1,4 @@
-define(['jquery','engine/engine'],function($,Engine){
+require(['jquery','engine/engine','engine/entities/entity'],function($,Engine){
 	var game = new Engine({
 		screen:	$('#screen')[0],
 		init: function(){
@@ -18,6 +18,4 @@ define(['jquery','engine/engine'],function($,Engine){
 	});
 	
 	game.start();
-	
-	return 5;
 });
