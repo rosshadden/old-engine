@@ -1,4 +1,4 @@
-require(['jquery','engine/engine','engine/entities/entity'],function($,Engine,Entity){
+require(['jquery','engine/engine','engine/entities/entity'],function($,Engine){
 	var game = new Engine({
 		screen:	$('#screen')[0],
 		init: function(){
@@ -11,7 +11,9 @@ require(['jquery','engine/engine','engine/entities/entity'],function($,Engine,En
             var paddle_one = new Entity();
 		},
 		update: function(){},
-		draw: function(){}
+		paint: function(){
+			paddle_one.draw();
+		}
 	});
 	
 	game.bind.key('e',function(){

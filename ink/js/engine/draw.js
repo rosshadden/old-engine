@@ -36,6 +36,19 @@ define(function(){
 			canvas.lineCap = options.lineCap;
 			canvas.stroke();
 		},
+		image = function(properties){
+			easel.screen.drawImage(
+				properties.src,
+				properties.x,
+				properties.y,
+				properties.w,
+				properties.h,
+				0,
+				0,
+				properties.width,
+				properties.height
+			);
+		},
 		cells = function(width,height,cell){
 			var x,y;
 			for(x = cell.width; x < width; x += cell.width){
@@ -49,6 +62,8 @@ define(function(){
 		easel:			easel,
 		setDimensions:	setDimensions,
 		backdrop:		backdrop,
+		path:			path,
+		image:			image,
 		cells:			cells
 	};
 });
