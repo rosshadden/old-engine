@@ -13,8 +13,9 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 				position: self.world.toXY(22,6)
 			});
 			self.world.createEntity(Ball,{
-				name:	'ball',
-				position: self.world.toXY(10,6)
+				name:		'ball',
+				position:	self.world.toXY(10,6),
+				interval:	4
 			});
 		},
 		update: function(){

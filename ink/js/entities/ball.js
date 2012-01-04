@@ -5,6 +5,8 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 		self.init = (function(){
 			self.name = properties.name || 'Unnamed';
 			
+			self.isAnimated = true;
+			
 			self.dim = {
 				width:	100,
 				height:	100
@@ -20,11 +22,22 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 			self.spriteIndex = 0;
 			
 			self.frame = 0;
-			self._numFrames = 4;
 			self.numFrames = 4;
-			self.interval = function(frame){
-				return frame === 4;
-			};
+			self.interval = (function(interval){
+				var output;
+				if(typeof interval === 'number'){
+					output = function(frame){
+						return frame === interval;
+					};
+				}else if(typeof interval === 'boolean'){
+					output = function(frame){
+						return interval;
+					};
+				}else if(typeof interval === 'function'){
+					output = interval;
+				}
+				return output;
+			})(properties.interval || 4);
 			
 			self.animation = [{
 				x:			0,
@@ -48,8 +61,21 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 				h:			100
 			}];
 			
-			//	Let this accept arrays and strings ('loop', 'oscillate', etc)
-			self.sequence = properties.sequence || [0,1,2,3];
+			//	Accepts 'linear', 'oscillate', and arrays of animation indecies.
+			self.sequence = (function(sequence){
+				var output = [];
+				if(typeof sequence === 'object' && sequence instanceof Array){
+					output = sequence;
+				}else{
+					for(i in self.animation){
+						output[i] = i;
+						if(sequence === 'oscillate' && i !== '0'){
+							output[2 * self.animation.length - i - 2] = i;
+						}
+					}
+				}
+				return output;
+			})(properties.sequence || 'linear');
 		})();
 		
 		self.move = function(x,y){
@@ -58,11 +84,11 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 		};
 		
 		self.play = function(){
-			self.numFrames = self._numFrames;
+			self.isAnimated = true;
 		};
 		
 		self.stop = function(){
-			self.numFrames = 1;
+			self.isAnimated = false;
 		};
 		
 		self.draw = function(){
@@ -73,7 +99,7 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 				position:	self.position,
 				sprite:		self.animation[self.sequence[self.spriteIndex]]
 			});
-			if(self.interval(self.frame)){
+			if(self.isAnimated && self.interval(self.frame)){
 				self.spriteIndex = (self.spriteIndex + 1) % self.sequence.length;
 				self.frame = 0;
 			}
