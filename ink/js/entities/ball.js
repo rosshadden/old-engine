@@ -17,7 +17,7 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 				y:	properties.position && properties.position.y || 0
 			};
             
-            self.velocity = properties.position.velocity || {
+            self.velocity = properties.velocity || {
                 x:  4,
                 y:  4
             };

@@ -5,12 +5,16 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 			var self = this;
 
 			self.world.createEntity(Player,{
-				name:	'paddleOne',
-				position: self.world.toXY(1,6)
+				name:       'paddleOne',
+				position:   self.world.toXY(1,6),
+                velocity: {
+                    x:  0,
+                    y:  8
+                }
 			});
 			self.world.createEntity(Player,{
-				name:	'paddleTwo',
-				position: self.world.toXY(22,6)
+				name:       'paddleTwo',
+				position:   self.world.toXY(22,6)
 			});
 			self.world.createEntity(Ball,{
 				name:		'ball',
