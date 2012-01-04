@@ -16,6 +16,11 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 				x:	properties.position && properties.position.x || 0,
 				y:	properties.position && properties.position.y || 0
 			};
+            
+            self.velocity = properties.position.velocity || {
+                x:  4,
+                y:  4
+            };
 			
 			self.sprite = new Image();
 			self.sprite.src = 'img/circle.png';
@@ -79,8 +84,8 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 		})();
 		
 		self.move = function(x,y){
-			self.position.x += 4 * x;
-			self.position.y += 4 * y;
+			self.position.x += self.velocity.x * x;
+			self.position.y += self.velocity.y * y;
 		};
 		
 		self.play = function(){
