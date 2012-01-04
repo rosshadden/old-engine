@@ -1,5 +1,15 @@
 define(function(){
 	return {
+        inherit: (function(){
+            var Temp = function(){};
+            return function(Child,Parent){
+                Temp.prototype = Parent.prototype;
+                Child.prototype = new Temp();
+                Child.uber = Parent.prototype;
+                Child.prototype.constructor = Child;
+            };
+        })(),
+        
 		extend: function(source,target){
 			var object = {};
 			for(key in source){

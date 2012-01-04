@@ -9,7 +9,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 				position:   self.world.toXY(1,6),
                 velocity: {
                     x:  0,
-                    y:  8
+                    y:  16
                 }
 			});
 			self.world.createEntity(Player,{

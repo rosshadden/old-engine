@@ -1,19 +1,19 @@
-define(['./character','engine/world','engine/draw'],function(Character,world,draw){
+define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,world,draw,util){
 	var Player = function(properties){
 		var self = this;
         
         self.init = (function(){
-        	self.name = properties.name || 'Unnamed';
-    		
-    		self.dim = {
-    			width:	world.cell.width,
-    			height:	world.cell.height
-    		};
-    		
-    		self.position = {
-    			x:	properties.position && properties.position.x || 0,
-    			y:	properties.position && properties.position.y || 0
-    		};
+			self.name = properties.name || 'Unnamed';
+			
+			self.dim = {
+				width:	world.cell.width,
+				height:	world.cell.height
+			};
+			
+			self.position = {
+				x:	properties.position && properties.position.x || 0,
+				y:	properties.position && properties.position.y || 0
+			};
                 
             self.velocity = properties.velocity || {
                 x:  4,
@@ -48,6 +48,8 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 				position:	self.position,
 				sprite:		self.animation[self.spriteIndex]
 			});
+            
+			console.log('Player test',self.test);
 		};
 		
 		return {
@@ -55,5 +57,6 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 			draw:	self.draw
 		};
 	};
+    util.inherit(Player,Entity);
 	return Player;
 });

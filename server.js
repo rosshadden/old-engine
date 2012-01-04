@@ -37,8 +37,7 @@ var	io,
 		io = require('socket.io').listen(app);
 		io.set('log level',1);
 		
-        console.log(app.address());
-		console.log('http://localhost:%d | %s',app.address().port,app.settings.env);
+		console.log('http://%s:%d | %s',app.address().address,app.address().port,app.settings.env);
 	},
 	serve = function(){
 		init();
