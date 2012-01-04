@@ -1,4 +1,4 @@
-require(['jquery','engine/engine','entities/player'],function($,Engine,Player){
+require(['jquery','engine/engine','entities/player','entities/ball'],function($,Engine,Player,Ball){
 	var game = new Engine({
 		screen:	$('#screen')[0],
 		init: function(){
@@ -11,6 +11,10 @@ require(['jquery','engine/engine','entities/player'],function($,Engine,Player){
 			self.world.createEntity(Player,{
 				name:	'paddleTwo',
 				position: self.world.toXY(22,6)
+			});
+			self.world.createEntity(Ball,{
+				name:	'ball',
+				position: self.world.toXY(10,6)
 			});
 		},
 		update: function(){
@@ -40,6 +44,16 @@ require(['jquery','engine/engine','entities/player'],function($,Engine,Player){
 	
 	game.bind.key('e',function(){
 		console.log('input.key:','e');
+	});
+	
+	game.bind.key('z',function(){
+		game.world.entities.ball.stop();
+		console.log('LOG:','ball animation stopped.');
+	});
+	
+	game.bind.key('x',function(){
+		game.world.entities.ball.play();
+		console.log('LOG:','ball animation started.');
 	});
 	
 	game.start();

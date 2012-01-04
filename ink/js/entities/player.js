@@ -18,6 +18,13 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 		self.sprite.src = 'img/wall.jpg';
 		self.spriteIndex = 0;
 		
+		self.animation = [{
+			x:			0,
+			y:			0,
+			w:			100,
+			h:			100
+		}];
+		
 		self.frames = 1;
 		self.actualFrame = 0;
 		self.interval = 0;
@@ -32,10 +39,7 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 				width:		self.dim.width,
 				height:		4 * self.dim.height,
 				position:	self.position,
-				x:			0,
-				y:			0,
-				w:			100,
-				h:			100
+				sprite:		self.animation[self.spriteIndex]
 			});
 		};
 		

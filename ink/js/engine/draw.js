@@ -39,10 +39,10 @@ define(function(){
 		image = function(properties){
 			easel.screen.drawImage(
 				properties.src,
-				properties.x,
-				properties.y,
-				properties.w,
-				properties.h,
+				properties.sprite.x,
+				properties.sprite.y,
+				properties.sprite.w,
+				properties.sprite.h,
 				properties.position && properties.position.x || 0,
 				properties.position && properties.position.y || 0,
 				properties.width,
