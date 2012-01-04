@@ -1,9 +1,9 @@
 define(['engine/world','engine/draw','engine/viewport','entities/entity','engine/input/input','engine/util',],function(world,draw,viewport,Entity,input,util){
 	var Engine = function(options){
 		var	self = this,
-		
+		    
+            //  Need to somehow pass this to the drawing library.
 			screen = options.screen || $('canvas')[0],
-			ctx = screen.getContext('2d'),
 			
 			execute = function(what){
 				if(typeof options[what] === 'function'){
@@ -39,6 +39,10 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 				return function(){
 					draw.backdrop(viewport.getDimensions().width,viewport.getDimensions().height);
 					draw.cells(600,400,world.cell);
+                    
+            		for(var entity in world.entities){
+        				world.entities[entity].draw();
+        			}
 					
 					execute('paint');
 				};
@@ -63,7 +67,6 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 		return util.extend({
 			world:	self.world,
 			input:	self.input,
-			screen:	screen,
 			util:	util,
 			start:	start,
 			bind: 	self.bind

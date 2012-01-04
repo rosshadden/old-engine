@@ -36,11 +36,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 				}
 			}
 		},
-		paint: function(){
-			for(entity in this.world.entities){
-				this.world.entities[entity].draw();
-			}
-		}
+		paint: function(){}
 	});
 	
 	game.bind.key('e',function(){

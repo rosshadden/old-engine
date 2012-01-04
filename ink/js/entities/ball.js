@@ -30,7 +30,7 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 						return frame === interval;
 					};
 				}else if(typeof interval === 'boolean'){
-					output = function(frame){
+					output = function(){
 						return interval;
 					};
 				}else if(typeof interval === 'function'){
@@ -102,6 +102,8 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 			if(self.isAnimated && self.interval(self.frame)){
 				self.spriteIndex = (self.spriteIndex + 1) % self.sequence.length;
 				self.frame = 0;
+			}else if(!self.isAnimated){
+                self.frame = 0;
 			}
 			self.frame++;
 		};
