@@ -7,6 +7,7 @@ define(function(){
                 Child.prototype = new Temp();
                 Child.uber = Parent.prototype;
                 Child.prototype.constructor = Child;
+				return Child;
             };
         })(),
         

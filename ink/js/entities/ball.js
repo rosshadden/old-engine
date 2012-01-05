@@ -3,8 +3,6 @@ define(['./character','engine/world','engine/draw'],function(Character,world,dra
 		var self = this;
 		
 		self.init = (function(){
-			self.name = properties.name || 'Unnamed';
-			
 			self.isAnimated = true;
 			
 			self.dim = {

@@ -1,10 +1,8 @@
 define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,world,draw,util){
-	var Player = function(properties){
+	var Player = util.inherit(function(properties){
 		var self = this;
         
         self.init = (function(){
-			self.name = properties.name || 'Unnamed';
-			
 			self.dim = {
 				width:	world.cell.width,
 				height:	world.cell.height
@@ -38,25 +36,25 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 		
 		self.move = function(dir){
 			self.position.y += self.velocity.y * dir;
+            
+			console.log('Player test',self.asdf);
 		};
 		
 		self.draw = function(){
 			draw.image({
 				src:		self.sprite,
 				width:		self.dim.width,
-				height:		4 * self.dim.height,
+				height:		self.dim.height,
 				position:	self.position,
 				sprite:		self.animation[self.spriteIndex]
 			});
-            
-			console.log('Player test',self.test);
 		};
 		
 		return {
 			move:	self.move,
 			draw:	self.draw
 		};
-	};
-    util.inherit(Player,Entity);
+	},Entity);
+	
 	return Player;
 });
