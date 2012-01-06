@@ -12,6 +12,13 @@ define(['engine/world','engine/draw'],function(world,draw){
 			draw:	self.draw
 		};
 	};
-	Entity.prototype.asdf = Entity.name;
+	
+	Entity.prototype.init = function(properties){
+		console.log('init');
+		for(var property in properties){
+			Entity.prototype[property] = properties[property];
+		}
+	};
+	
 	return Entity;
 });

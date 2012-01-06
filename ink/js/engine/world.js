@@ -1,4 +1,4 @@
-define(['main'],function(engine){
+define(function(){
     var	_numEntities = 0,
 		entities = {},
 		

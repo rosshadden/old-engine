@@ -1,5 +1,20 @@
 define(function(){
 	var	self = this,
+		
+		Sprite = function(properties){
+			var sprite = {
+				image:	new Image()
+			};
+			
+			for(var property in properties){
+				sprite[property] = properties[property];
+			}
+			
+			sprite.image.src = properties.source;
+			
+			return sprite;
+		},
+		
 		easel = {
 			screen:		$('#screen')[0].getContext('2d'),
 			element: {
@@ -59,6 +74,7 @@ define(function(){
 			}
 		};
 	return {
+		Sprite:			Sprite,
 		easel:			easel,
 		setDimensions:	setDimensions,
 		backdrop:		backdrop,
