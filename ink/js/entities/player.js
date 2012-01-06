@@ -2,26 +2,7 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 	var Player = util.inherit(function(properties){
 		var self = this;
 		
-		self.init({
-			dim:	{
-				width:	world.cell.width,
-				height:	world.cell.height
-			},
-			
-			sprite:		new Image(),
-			spriteIndex:0,
-			
-			animation:	[{
-				x:			0,
-				y:			0,
-				w:			100,
-				h:			100
-			}],
-			
-			frames:		1,
-			actualFrame:0,
-			interval:	0
-		});
+		self.isAnimated = true;
 		
 		self.position = {
 			x:	properties.position && properties.position.x || 0,
@@ -33,7 +14,16 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 			y:  4
 		};
 		
+		self.sprite = new Image();
 		self.sprite.src = 'img/wall.jpg';
+		
+		self.animation = [{
+			x:			0,
+			y:			0,
+			w:			100,
+			h:			100
+		}];
+		self.frames = 1;
 		
 		self.move = function(dir){
 			self.position.y += self.velocity.y * dir;
