@@ -1,49 +1,40 @@
 define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,world,draw,util){
-	var Player = util.inherit(function(properties){
-		var self = this;
-		
-		self.isAnimated = true;
-		
-		self.position = {
-			x:	properties.position && properties.position.x || 0,
-			y:	properties.position && properties.position.y || 0
-		};
-		
-		self.velocity = properties.velocity || {
-			x:  4,
-			y:  4
-		};
-		
-		self.sprite = new Image();
-		self.sprite.src = 'img/wall.jpg';
-		
-		self.animation = [{
-			x:			0,
-			y:			0,
-			w:			100,
-			h:			100
-		}];
-		self.frames = 1;
-		
-		self.move = function(dir){
-			self.position.y += self.velocity.y * dir;
-		};
-		
-		self.draw = function(){
+	var Player = Entity.extend({
+		init:	function(properties){
+			this._super(properties);
+			
+			this.isAnimated = false;
+			
+			this.position = {
+				x:	properties.position && properties.position.x || 0,
+				y:	properties.position && properties.position.y || 0
+			};
+			this.velocity = properties.velocity || {
+				x:  4,
+				y:  4
+			};
+			this.animation = [{
+				x:			0,
+				y:			0,
+				w:			100,
+				h:			100
+			}];
+			
+			this.sprite.src = 'img/wall.jpg';
+		},
+		move:	function(dir){
+			this.position.y += this.velocity.y * dir;
+		},
+		draw:	function(){
 			draw.image({
-				src:		self.sprite,
-				width:		self.dim.width,
-				height:		self.dim.height,
-				position:	self.position,
-				sprite:		self.animation[self.spriteIndex]
+				src:		this.sprite,
+				width:		this.dim.width,
+				height:		this.dim.height,
+				position:	this.position,
+				sprite:		this.animation[this.spriteIndex]
 			});
-		};
-		
-		return {
-			move:	self.move,
-			draw:	self.draw
-		};
-	},Entity);
+		}
+	});
 	
 	return Player;
 });

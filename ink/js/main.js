@@ -44,7 +44,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 	});
 	
 	game.bind.key('e',function(){
-		console.log('input.key:','e');
+		game.world.entities.ball.debug();
 	});
 	
 	game.bind.key('z',function(){
