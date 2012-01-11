@@ -25,10 +25,10 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 		update: function(){
 			var keys = this.input.keyboard.activeKeys();
 			if(keys.length > 0){
-				if(keys.indexOf('w') > -1){
+				if(keys.indexOf('w') > -1 || keys.indexOf('comma') > -1){
 					this.world.entities.paddleOne.move(-1);
 				}
-				if(keys.indexOf('s') > -1){
+				if(keys.indexOf('s') > -1 || keys.indexOf('o') > -1){
 					this.world.entities.paddleOne.move(1);
 				}
 				
@@ -44,7 +44,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 	});
 	
 	game.bind.key('e',function(){
-		game.world.entities.ball.debug();
+		console.log(game.input.keyboard.activeKeys());
 	});
 	
 	game.bind.key('z',function(){

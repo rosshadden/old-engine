@@ -6,7 +6,7 @@ var	io,
 	parseCookie = require('connect').utils.parseCookie,
 	parseURL = require('url').parse,
 	
-	auth = require('./auth'),
+	auth = require('./server/auth'),
 	
 	ONLINE = true,
 	
@@ -27,7 +27,7 @@ var	io,
 				ONLINE = false;
 				console.log('::OFFLINE::');
 			}
-			app.use(require('./auth').configure(app));
+			app.use(auth.configure(app));
 			app.use(app.router);
 			app.use(express.static(__dirname + '/ink'));
 		});
