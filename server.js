@@ -51,7 +51,7 @@ var	io,
 				url = parseURL(request.url,true);
 			response.contentType('application/json');
 			
-			switch(url.query.on){
+			switch(url.query.for){
 				case 'debug':
 					data = 'debug';
 					break;
@@ -60,6 +60,15 @@ var	io,
 			}
 			
 			response.end(JSON.stringify(data));
+		});
+		
+		app.get('/maps/:path',function(request,response){
+			response.contentType('application/json');
+			response.end(
+				JSON.stringify(
+					require(__dirname + '/ink/js/maps/' + request.params.path + '.json')
+				)
+			);
 		});
 		
 		io.set('authorization',function(data,accept){

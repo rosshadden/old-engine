@@ -1,0 +1,10 @@
+{
+	"string":	"asdf",
+	"array":	[1,2,3,4,567],
+	"number":	2,
+	"boolean":	true,
+	"object":	{
+		"x":	2,
+		"y":	5
+	}
+}
