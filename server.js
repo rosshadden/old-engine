@@ -59,16 +59,27 @@ var	io,
 					data = 'default';
 			}
 			
-			response.end(JSON.stringify(data));
+			response.json(data);
 		});
 		
 		app.get('/maps/:path',function(request,response){
+			//	WHY DOES THIS ERROR OUT?!?!?
+			//var map = require('./ink/js/maps/' + request.params.path + '.json');
+			
+			var temporaryMapBecauseOfTheAboveBug = {
+				"string":	"asdf",
+				"array":	[1,2,3,4,567],
+				"number":	2,
+				"boolean":	true,
+				"object":	{
+					"x":	2,
+					"y":	5
+				}
+			};
+			
 			response.contentType('application/json');
-			response.end(
-				JSON.stringify(
-					require(__dirname + '/ink/js/maps/' + request.params.path + '.json')
-				)
-			);
+			
+			response.json(temporaryMapBecauseOfTheAboveBug);
 		});
 		
 		io.set('authorization',function(data,accept){

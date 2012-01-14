@@ -24,9 +24,10 @@ define(function(){
 				};
 			
 				get = function(mapPath){
-					
+					return cache[mapPath];
 				};
 			return {
+				fetch:	fetch,
 				get:	get
 			};
 		})(),

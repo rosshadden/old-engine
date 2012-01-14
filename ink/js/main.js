@@ -44,7 +44,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 			paint: function(){}
 		}),
 		debug = function(){
-			$.when(game.world.maps.get('map1'))
+			$.when(game.world.maps.fetch('map1'))
 				.done(function(data){
 					console.log('debug',data);
 				});
