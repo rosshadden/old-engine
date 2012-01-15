@@ -42,13 +42,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 				}
 			},
 			paint: function(){}
-		}),
-		debug = function(){
-			$.when(game.world.maps.fetch('map1'))
-				.done(function(data){
-					console.log('debug',data);
-				});
-		};
+		});
 	
 	game.bind.key('z',function(){
 		game.world.entities.ball.stop();
@@ -60,13 +54,16 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 		console.log('LOG:','ball animation started.');
 	});
 	
-	game.bind.key('shift + k',function(){
-		console.log(game.input.keyboard.activeKeys());
-	});
-	
-	game.bind.key('shift + b',function(){
-		debug();
-	});
+	////////////////////////////////
+	//	DEBUGGING
+		game.bind.key('shift + graveaccent',function(){
+			console.log(game.input.keyboard.activeKeys());
+		});
+		
+		game.bind.key('shift + 1',function(){
+			game.world.maps.show('map1');
+		});
+	////////////////////////////////
 	
 	game.start();
 });

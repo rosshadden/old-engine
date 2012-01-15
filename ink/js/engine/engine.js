@@ -5,6 +5,8 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
             //  Need to somehow pass this to the drawing library.
 			screen = options.screen || $('canvas')[0],
 			
+			currentMap = 'map1',
+			
 			execute = function(what){
 				if(typeof options[what] === 'function'){
 					options[what].call(self);
@@ -13,7 +15,7 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 			
 			init = (function(){
 				draw.setDimensions(600,400);
-                viewport.setDimensions(600,400);
+				viewport.setDimensions(600,400);
                 
 				//	convenient shortcuts
 				self.world = world;
@@ -39,10 +41,12 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 				return function(){
 					draw.backdrop(viewport.getDimensions().width,viewport.getDimensions().height);
 					draw.cells(600,400,world.cell);
+					
+					draw.layer(world.maps.get(currentMap).element);
                     
-            		for(var entity in world.entities){
-        				world.entities[entity].draw();
-        			}
+					for(var entity in world.entities){
+						world.entities[entity].draw();
+					}
 					
 					execute('paint');
 				};
@@ -61,7 +65,17 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 			},
 			
 			start = function(){
-				main();
+				$.when(world.maps.fetch(currentMap))
+				//	There HAS to be a more clean way to chain deferreds.
+				//	$.Deferred.pipe comes close, but not quite.
+				//	Chaining $.Deferred.done's would work,
+				//		except maps.fetch would have to return currentMap.
+				.done(function(){
+					//	This is async because of Image.onload... :(
+					world.maps.render(currentMap);
+					
+					main();
+				});
 			};
 		
 		return util.extend({

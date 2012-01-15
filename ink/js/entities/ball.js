@@ -86,7 +86,7 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 			this.position.y += this.velocity.y * y;
 		},
 		draw:	function(){
-			draw.image({
+			draw.sprite({
 				src:		this.sprite,
 				width:		this.dim.width,
 				height:		this.dim.height,

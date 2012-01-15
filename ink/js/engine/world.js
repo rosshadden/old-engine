@@ -1,4 +1,4 @@
-define(function(){
+define(['engine/draw'],function(draw){
     var	_numEntities = 0,
 		entities = {},
 		
@@ -10,25 +10,65 @@ define(function(){
 		//	Possibly consider breaking this out into its own module,
 		//	and probably still referring to it here:  maps = require('maps');
 		maps = (function(){
-			var cache = {},
+			//	Cache of the maps loaded so far.
+			var maps = {},
 				
+				//	Totally make this a chainable API.
 				fetch = function(mapPath){
 					var def = new $.Deferred;
 					
 					$.getJSON('/maps/' + mapPath,function(map){
-						cache[mapPath] = map;
-						def.resolve(map);
+						maps[mapPath] = map;
+						def.resolve(mapPath);
 					});
 					
 					return def.promise();
-				};
+				},
 			
 				get = function(mapPath){
-					return cache[mapPath];
+					return maps[mapPath];
+				},
+				
+				render = function(mapPath){
+					var map = maps[mapPath],
+						def = new $.Deferred;
+					
+					if(!map.element){
+						map.element = document.createElement('canvas');
+					}
+					if(!map.ctx){
+						map.ctx = map.element.getContext('2d');
+					}
+					
+					var canvas = map.element,
+						ctx = map.ctx;
+					
+					map.tiles.forEach(function(tile,t){
+						var sprite = new Image();
+						sprite.src = 'img/tiles/' + tile.src;
+						sprite.onload = function(){
+							draw.image({
+								src:	sprite,
+								source: tile.source,
+								destination: {
+									position:	toXY(tile.destination.position),
+									dimensions:	tile.destination.dimensions
+								}
+							},ctx);
+						};
+					});
+					
+					return def.promise();
+				},
+				
+				show = function(mapPath){
+					$('#main')[0].appendChild(maps[mapPath].element);
 				};
 			return {
 				fetch:	fetch,
-				get:	get
+				get:	get,
+				render:	render,
+				show:	show
 			};
 		})(),
 		

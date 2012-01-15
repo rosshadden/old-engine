@@ -27,7 +27,7 @@ define(function(){
 		},
 		backdrop = function(width,height){
 			easel.screen.fillStyle = 'rgba(200,200,200,1)';
-			easel.screen.clearRect(0,0,width,height);
+			//easel.screen.clearRect(0,0,width,height);
 			easel.screen.fillRect(0,0,width,height);
 		},
 		path = function(x,y,x2,y2,options){
@@ -51,8 +51,23 @@ define(function(){
 			canvas.lineCap = options.lineCap;
 			canvas.stroke();
 		},
-		image = function(properties){
+		image = function(properties,ctx){
+			ctx = ctx || easel.screen;
 			easel.screen.drawImage(
+				properties.src,
+				properties.source.position.x,
+				properties.source.position.y,
+				properties.source.dimensions.w,
+				properties.source.dimensions.h,
+				properties.destination.position.x,
+				properties.destination.position.y,
+				properties.destination.dimensions.w,
+				properties.destination.dimensions.h
+			);
+		},
+		sprite = function(properties,ctx){
+			ctx = ctx || easel.screen;
+			ctx.drawImage(
 				properties.src,
 				properties.sprite.x,
 				properties.sprite.y,
@@ -62,6 +77,22 @@ define(function(){
 				properties.position && properties.position.y || 0,
 				properties.width,
 				properties.height
+			);
+		},
+		layer = function(source,ctx){
+			ctx = ctx || easel.screen;
+			
+			//	Implementing engine.viewport will affect these 0's.
+			ctx.drawImage(
+				source,
+				0,
+				0,
+				600,
+				400,
+				0,
+				0,
+				600,
+				400
 			);
 		},
 		cells = function(width,height,cell){
@@ -80,6 +111,8 @@ define(function(){
 		backdrop:		backdrop,
 		path:			path,
 		image:			image,
+		sprite:			sprite,
+		layer:			layer,
 		cells:			cells
 	};
 });

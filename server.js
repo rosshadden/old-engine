@@ -81,17 +81,27 @@ var	io,
 				"tiles":	[
 					{
 						"type":	"building",
-						"src":	"img/pokemon.png",
-						"where": {
-							"x":	6,
-							"y":	4
+						"src":	"pokemon.png",
+						"destination": {
+							"position": {
+								"x":	6,
+								"y":	4
+							},
+							"dimensions": {
+								"w":	75,
+								"h":	70
+							}
 						},
-						"x":	0,
-						"y":	0,
-						"w":	82,
-						"h":	70,
-						"dw":	75,
-						"dh":	70,
+						"source": {
+							"position": {
+								"x":	0,
+								"y":	0
+							},
+							"dimensions": {
+								"w":	82,
+								"h":	70
+							}
+						},
 						"door": {
 							"map": {
 								"x":	1,
@@ -112,19 +122,29 @@ var	io,
 						}
 					},{
 						"type":	"structure",
-						"src":	"img/wall.jpg",
-						"where": {
-							"x":	0,
-							"y":	15
+						"src":	"wall.jpg",
+						"destination": {
+							"position": {
+								"x":	0,
+								"y":	15
+							},
+							"dimensions": {
+								"w":	25,
+								"h":	25
+							}
 						},
-						"x":	0,
-						"y":	0,
-						"w":	154,
-						"h":	154,
-						"dw":	25,
-						"dh":	25,
+						"source": {
+							"position": {
+								"x":	0,
+								"y":	0
+							},
+							"dimensions": {
+								"w":	154,
+								"h":	154
+							}
+						},
 						"repeatX":	23,
-						"except":	[{
+						"except": [{
 							"x":	2,
 							"y":	15
 						},{
