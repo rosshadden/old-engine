@@ -64,17 +64,87 @@ var	io,
 		
 		app.get('/maps/:path',function(request,response){
 			//	WHY DOES THIS ERROR OUT?!?!?
-			//var map = require('./ink/js/maps/' + request.params.path + '.json');
+			//var map = require('./ink/maps/' + request.params.path + '.json');
 			
 			var temporaryMapBecauseOfTheAboveBug = {
-				"string":	"asdf",
-				"array":	[1,2,3,4,567],
-				"number":	2,
-				"boolean":	true,
-				"object":	{
-					"x":	2,
-					"y":	5
-				}
+				"properties":	{
+					"name":			"home",
+					"description":	"This is the house that Ross built?",
+					"dimensions":	{
+						"width":	10,
+						"height":	10
+					}
+				},
+				"background":	{
+					"color":	"#996633"
+				},
+				"tiles":	[
+					{
+						"type":	"building",
+						"src":	"img/pokemon.png",
+						"where": {
+							"x":	6,
+							"y":	4
+						},
+						"x":	0,
+						"y":	0,
+						"w":	82,
+						"h":	70,
+						"dw":	75,
+						"dh":	70,
+						"door": {
+							"map": {
+								"x":	1,
+								"y":	1
+							},
+							"instance": {
+								"x":	7,
+								"y":	6
+							},
+							"at": {
+								"x":	7,
+								"y":	6
+							},
+							"to": {
+								"x":	3,
+								"y":	7
+							}
+						}
+					},{
+						"type":	"structure",
+						"src":	"img/wall.jpg",
+						"where": {
+							"x":	0,
+							"y":	15
+						},
+						"x":	0,
+						"y":	0,
+						"w":	154,
+						"h":	154,
+						"dw":	25,
+						"dh":	25,
+						"repeatX":	23,
+						"except":	[{
+							"x":	2,
+							"y":	15
+						},{
+							"x":	3,
+							"y":	15
+						},{
+							"x":	10,
+							"y":	15
+						},{
+							"x":	11,
+							"y":	15
+						},{
+							"x":	12,
+							"y":	15
+						},{
+							"x":	13,
+							"y":	15
+						}]
+					}
+				]
 			};
 			
 			response.contentType('application/json');

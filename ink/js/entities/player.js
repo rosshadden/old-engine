@@ -20,7 +20,7 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 				h:			100
 			}];
 			
-			this.sprite.src = 'img/wall.jpg';
+			this.sprite.src = 'img/tiles/wall.jpg';
 		},
 		move:	function(dir){
 			this.position.y += this.velocity.y * dir;

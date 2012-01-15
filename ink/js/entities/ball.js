@@ -23,7 +23,7 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 				y:  4
 			};
 			
-			this.sprite.src = 'img/circle.png';
+			this.sprite.src = 'img/tiles/circle.png';
 			this.spriteIndex = 0;
 			
 			this.animation = [{
