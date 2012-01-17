@@ -53,7 +53,7 @@ define(function(){
 		},
 		image = function(properties,ctx){
 			ctx = ctx || easel.screen;
-			easel.screen.drawImage(
+			ctx.drawImage(
 				properties.src,
 				properties.source.position.x,
 				properties.source.position.y,

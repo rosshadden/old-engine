@@ -34,7 +34,8 @@ define(['engine/draw'],function(draw){
 						def = new $.Deferred;
 					
 					if(!map.element){
-						map.element = document.createElement('canvas');
+						//map.element = document.createElement('canvas');
+						map.element = document.getElementById('background');
 					}
 					if(!map.ctx){
 						map.ctx = map.element.getContext('2d');
