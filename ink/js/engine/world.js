@@ -63,7 +63,7 @@ define(['engine/draw'],function(draw){
 				},
 				
 				show = function(mapPath){
-					$('#main')[0].appendChild(maps[mapPath].element);
+					$('#game')[0].appendChild(maps[mapPath].element);
 				};
 			return {
 				fetch:	fetch,
