@@ -64,13 +64,21 @@ var	io,
 		
 		app.get('/maps/:path',function(request,response){
 			//	WHY DOES THIS ERROR OUT?!?!?
-			var map = require('./ink/maps/empty.json');
-			
-			console.log(map);
+			//	Answer:	Apparently Cloud9IDE uses Node 0.4,
+			//		which is before you could require('*.json')...
+			var map;
+			try{
+				map = require('./ink/maps/' + request.params.path + '.json');
+			}catch(e){
+				console.log('ERROR:',e);
+				map = {
+					error:	"The map you seek does not exist."
+				};
+			}
 			
 			response.contentType('application/json');
 			
-			response.json({});
+			response.json(map);
 		});
 		
 		io.set('authorization',function(data,accept){
