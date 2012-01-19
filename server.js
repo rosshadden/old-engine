@@ -71,8 +71,8 @@ var	io,
 					"name":			"home",
 					"description":	"This is the house that Ross built?",
 					"dimensions":	{
-						"width":	10,
-						"height":	10
+						"width":	24,
+						"height":	16
 					}
 				},
 				"background":	{
@@ -84,8 +84,8 @@ var	io,
 						"src":	"pokemon.png",
 						"destination": {
 							"position": {
-								"x":	6,
-								"y":	4
+								"x":	1,
+								"y":	1
 							},
 							"dimensions": {
 								"w":	75,
@@ -125,7 +125,7 @@ var	io,
 						"src":	"wall.jpg",
 						"destination": {
 							"position": {
-								"x":	0,
+								"x":	1,
 								"y":	15
 							},
 							"dimensions": {

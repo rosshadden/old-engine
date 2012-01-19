@@ -2,7 +2,7 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 	var Engine = function(options){
 		var	self = this,
 		    
-            //  Need to somehow pass this to the drawing library.
+            //  Need to pass this to the drawing library.
 			screen = options.screen || $('canvas')[0],
 			
 			currentMap = 'map1',
@@ -16,6 +16,12 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 			init = (function(){
 				draw.setDimensions(600,400);
 				viewport.setDimensions(600,400);
+				
+				if($('#engine-cache').length === 0){
+					$('<div>',{
+						id:	'engine-cache'
+					}).appendTo('body');
+				}
                 
 				//	convenient shortcuts
 				self.world = world;
@@ -39,10 +45,12 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 
 			paint = (function(){
 				return function(){
+					var map = world.maps.get(currentMap);
+					
 					draw.backdrop(viewport.getDimensions().width,viewport.getDimensions().height);
 					draw.cells(600,400,world.cell);
 					
-					draw.layer(world.maps.get(currentMap).element);
+					draw.layer(map.element,world.toXY(map.properties.dimensions));
                     
 					for(var entity in world.entities){
 						world.entities[entity].draw();

@@ -30,19 +30,16 @@ define(['engine/draw'],function(draw){
 				},
 				
 				render = function(mapPath){
-					var map = maps[mapPath],
-						def = new $.Deferred;
+					var map = maps[mapPath];
 					
 					if(!map.element){
-						//map.element = document.createElement('canvas');
-						map.element = document.getElementById('background');
+						map.element = document.createElement('canvas');
+						map.element.width = toXY(map.properties.dimensions.width);
+						map.element.height = toXY(map.properties.dimensions.height);
 					}
 					if(!map.ctx){
 						map.ctx = map.element.getContext('2d');
 					}
-					
-					var canvas = map.element,
-						ctx = map.ctx;
 					
 					map.tiles.forEach(function(tile,t){
 						var sprite = new Image();
@@ -55,15 +52,13 @@ define(['engine/draw'],function(draw){
 									position:	toXY(tile.destination.position),
 									dimensions:	tile.destination.dimensions
 								}
-							},ctx);
+							},map.ctx);
 						};
 					});
-					
-					return def.promise();
 				},
 				
 				show = function(mapPath){
-					$('#game')[0].appendChild(maps[mapPath].element);
+					$('#engine-cache')[0].appendChild(maps[mapPath].element);
 				};
 			return {
 				fetch:	fetch,
@@ -96,8 +91,15 @@ define(['engine/draw'],function(draw){
 		toXY = function(x,y){
 			if(typeof y === 'undefined'){
 				if(typeof x === 'object'){
+					if(x.x && x.y){
 					y = x.y;
 					x = x.x;
+					}else if(x.width && x.height){
+						return {
+							width:	x.width * cell.width,
+							height:	x.height * cell.height
+						};
+					}
 				}else{
 					return x * cell.width;
 				}

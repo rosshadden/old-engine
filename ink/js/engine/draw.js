@@ -79,20 +79,14 @@ define(function(){
 				properties.height
 			);
 		},
-		layer = function(source,ctx){
+		layer = function(source,dimensions,ctx){
 			ctx = ctx || easel.screen;
 			
 			//	Implementing engine.viewport will affect these 0's.
 			ctx.drawImage(
 				source,
-				0,
-				0,
-				600,
-				400,
-				0,
-				0,
-				600,
-				400
+				0,0,dimensions.width,dimensions.height,
+				0,0,dimensions.width,dimensions.height
 			);
 		},
 		cells = function(width,height,cell){
