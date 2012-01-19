@@ -1,6 +1,15 @@
 define(function(){
 	var	self = this,
 		
+		dimensions = {
+			width:	0,
+			height:	0
+		},
+		cell = {
+			width:	0,
+			height:	0
+		},
+		
 		Sprite = function(properties){
 			var sprite = {
 				image:	new Image()
@@ -21,9 +30,13 @@ define(function(){
 				screen:		$('#screen')[0]
 			}
 		},
-		setDimensions = function(width,height){
+		setDimensions = function(width,height,cells){
 			easel.element.screen.width = width;
 			easel.element.screen.height = height;
+			
+			dimensions.width = width;
+			dimensions.height = height;
+			cell = cells;
 		},
 		backdrop = function(width,height){
 			easel.screen.fillStyle = 'rgba(200,200,200,1)';
@@ -89,13 +102,13 @@ define(function(){
 				0,0,dimensions.width,dimensions.height
 			);
 		},
-		cells = function(width,height,cell){
+		cells = function(){
 			var x,y;
-			for(x = cell.width; x < width; x += cell.width){
-				path(x,0,x,height,{color:'rgba(0,0,0,.2)'});
+			for(x = cell.width; x < dimensions.width; x += cell.width){
+				path(x,0,x,dimensions.height,{color:'rgba(0,0,0,.2)'});
 			}
-			for(y = cell.height; y < height; y += cell.height){
-				path(0,y,width,y,{color:'rgba(0,0,0,.2)'});
+			for(y = cell.height; y < dimensions.height; y += cell.height){
+				path(0,y,dimensions.width,y,{color:'rgba(0,0,0,.2)'});
 			}
 		};
 	return {

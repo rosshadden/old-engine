@@ -59,9 +59,11 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 		game.bind.key('shift + graveaccent',function(){
 			console.log(game.input.keyboard.activeKeys());
 		});
-		
 		game.bind.key('shift + 1',function(){
-			game.world.maps.show('map1');
+			game.world.maps.load('empty');
+		});
+		game.bind.key('shift + 2',function(){
+			game.world.maps.load('map1');
 		});
 	////////////////////////////////
 	

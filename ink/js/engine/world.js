@@ -10,8 +10,20 @@ define(['engine/draw'],function(draw){
 		//	Possibly consider breaking this out into its own module,
 		//	and probably still referring to it here:  maps = require('maps');
 		maps = (function(){
-			//	Cache of the maps loaded so far.
+				//	Cache of the maps loaded so far.
 			var maps = {},
+				current,
+				
+				//	Maybe these should call the relevant parent functions as needed.
+				//	So if setCurrent() doesn't find the map in the cache, it can
+				//		call fetch, etc.
+				getCurrent = function(){
+					return current;
+				},
+				
+				setCurrent = function(mapPath){
+					current = mapPath;
+				},
 				
 				//	Totally make this a chainable API.
 				fetch = function(mapPath){
@@ -30,7 +42,19 @@ define(['engine/draw'],function(draw){
 				},
 				
 				render = function(mapPath){
-					var map = maps[mapPath];
+					var def = new $.Deferred,
+						map = maps[mapPath],
+						
+						isLoaded = (function(){
+							var list = [];
+							return function(which){
+								list.push(which);
+								
+								if(list.length === map.tiles.length){
+									def.resolve();
+								}
+							};
+						})();
 					
 					if(!map.element){
 						map.element = document.createElement('canvas');
@@ -53,7 +77,35 @@ define(['engine/draw'],function(draw){
 									dimensions:	tile.destination.dimensions
 								}
 							},map.ctx);
+							isLoaded(t);
 						};
+					});
+					
+					if(map.tiles.length === 0){
+						def.resolve();
+					}
+					
+					return def.promise();
+				},
+				
+				//	'change' is a weird word for this, because it loads too,
+				//		but these verbs are all very similar... MUST FIX!
+				//	UPDATE:	renamed 'change' -> 'load', but verbs are still similar.
+				load = function(mapPath,callback){
+					$.when(fetch(mapPath))
+					//	There HAS to be a more clean way to chain deferreds.
+					//	$.Deferred.pipe comes close, but not quite.
+					//	Chaining $.Deferred.done's would work,
+					//		except maps.fetch would have to return currentMap?
+					.done(function(){
+						//	render() is async because of Image.onload.
+						$.when(render(mapPath))
+						.done(function(){
+							setCurrent(mapPath);
+							if(typeof callback === 'function'){
+								callback.call(this);
+							}
+						});
 					});
 				},
 				
@@ -61,10 +113,13 @@ define(['engine/draw'],function(draw){
 					$('#engine-cache')[0].appendChild(maps[mapPath].element);
 				};
 			return {
-				fetch:	fetch,
-				get:	get,
-				render:	render,
-				show:	show
+				getCurrent:	getCurrent,
+				setCurrent:	setCurrent,
+				fetch:		fetch,
+				get:		get,
+				render:		render,
+				load:		load,
+				show:		show
 			};
 		})(),
 		

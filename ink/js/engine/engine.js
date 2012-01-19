@@ -5,8 +5,6 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
             //  Need to pass this to the drawing library.
 			screen = options.screen || $('canvas')[0],
 			
-			currentMap = 'map1',
-			
 			execute = function(what){
 				if(typeof options[what] === 'function'){
 					options[what].call(self);
@@ -14,7 +12,11 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 			},
 			
 			init = (function(){
-				draw.setDimensions(600,400);
+				//	main.js needs to be able to configure these.
+				//	I think I should make each module take initialization variables
+				//		before becoming modules.
+				//world.maps.setCurrent('map1');
+				draw.setDimensions(600,400,world.cell);
 				viewport.setDimensions(600,400);
 				
 				if($('#engine-cache').length === 0){
@@ -45,10 +47,10 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 
 			paint = (function(){
 				return function(){
-					var map = world.maps.get(currentMap);
+					var map = world.maps.get(world.maps.getCurrent());
 					
 					draw.backdrop(viewport.getDimensions().width,viewport.getDimensions().height);
-					draw.cells(600,400,world.cell);
+					draw.cells();
 					
 					draw.layer(map.element,world.toXY(map.properties.dimensions));
                     
@@ -73,17 +75,7 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 			},
 			
 			start = function(){
-				$.when(world.maps.fetch(currentMap))
-				//	There HAS to be a more clean way to chain deferreds.
-				//	$.Deferred.pipe comes close, but not quite.
-				//	Chaining $.Deferred.done's would work,
-				//		except maps.fetch would have to return currentMap.
-				.done(function(){
-					//	This is async because of Image.onload... :(
-					world.maps.render(currentMap);
-					
-					main();
-				});
+				world.maps.load('map1',main);
 			};
 		
 		return util.extend({
