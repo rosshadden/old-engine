@@ -64,112 +64,13 @@ var	io,
 		
 		app.get('/maps/:path',function(request,response){
 			//	WHY DOES THIS ERROR OUT?!?!?
-			//var map = require('./ink/maps/' + request.params.path + '.json');
+			var map = require('./ink/maps/empty.json');
 			
-			var temporaryMapBecauseOfTheAboveBug = {
-				"properties":	{
-					"name":			"home",
-					"description":	"This is the house that Ross built?",
-					"dimensions":	{
-						"width":	24,
-						"height":	16
-					}
-				},
-				"background":	{
-					"color":	"#996633"
-				},
-				"tiles":	[
-					{
-						"type":	"building",
-						"src":	"pokemon.png",
-						"destination": {
-							"position": {
-								"x":	1,
-								"y":	1
-							},
-							"dimensions": {
-								"w":	75,
-								"h":	70
-							}
-						},
-						"source": {
-							"position": {
-								"x":	0,
-								"y":	0
-							},
-							"dimensions": {
-								"w":	82,
-								"h":	70
-							}
-						},
-						"door": {
-							"map": {
-								"x":	1,
-								"y":	1
-							},
-							"instance": {
-								"x":	7,
-								"y":	6
-							},
-							"at": {
-								"x":	7,
-								"y":	6
-							},
-							"to": {
-								"x":	3,
-								"y":	7
-							}
-						}
-					},{
-						"type":	"structure",
-						"src":	"wall.jpg",
-						"destination": {
-							"position": {
-								"x":	1,
-								"y":	15
-							},
-							"dimensions": {
-								"w":	25,
-								"h":	25
-							}
-						},
-						"source": {
-							"position": {
-								"x":	0,
-								"y":	0
-							},
-							"dimensions": {
-								"w":	154,
-								"h":	154
-							}
-						},
-						"repeatX":	23,
-						"except": [{
-							"x":	2,
-							"y":	15
-						},{
-							"x":	3,
-							"y":	15
-						},{
-							"x":	10,
-							"y":	15
-						},{
-							"x":	11,
-							"y":	15
-						},{
-							"x":	12,
-							"y":	15
-						},{
-							"x":	13,
-							"y":	15
-						}]
-					}
-				]
-			};
+			console.log(map);
 			
 			response.contentType('application/json');
 			
-			response.json(temporaryMapBecauseOfTheAboveBug);
+			response.json({});
 		});
 		
 		io.set('authorization',function(data,accept){
