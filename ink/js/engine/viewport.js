@@ -1,4 +1,4 @@
-define(['engine/world','engine/draw'],function(world,draw){
+define(function(){
 	var self = this,
 	
 		x = 0,
@@ -9,8 +9,12 @@ define(['engine/world','engine/draw'],function(world,draw){
 		},
 		
 		setDimensions = function(width,height){
-			dim.width = width || ~~(window.innerWidth / world.cell.width / 2) * world.cell.width * 2 - 1e2;
-			dim.height = height || ~~(window.innerHeight / world.cell.height / 2) * world.cell.height * 2 - 1e2;
+			dim.width = width;
+			dim.height = height;
+			
+			//	Getting rid of this eliminates the dependency on engine/world.
+			/*dim.width = width || ~~(window.innerWidth / world.cell.width / 2) * world.cell.width * 2 - 1e2;
+			dim.height = height || ~~(window.innerHeight / world.cell.height / 2) * world.cell.height * 2 - 1e2;*/
 		},
 		getDimensions = function(){
 			return {
@@ -31,11 +35,14 @@ define(['engine/world','engine/draw'],function(world,draw){
 		moveBy = function(newX,newY){
 			move(x + newX,y + newY);
 		},
-		center = function(dontMove){
+		centerAt = function(point){
+			//	Why are these hardcoded...?
 			var x = 200,
 				y = 300;
-			if(!dontMove){
+			if(point === 'center'){
 				move(~~(x - viewport.getDimensions().width / 2),~~(y - viewport.getDimensions().height / 2));
+			}else if(point && point.x && point.y){
+				move(~~(point.x - viewport.getDimensions().width / 2),~~(point.y - viewport.getDimensions().height / 2));
 			}
 			return {
 				x:	~~(viewport.getDimensions().width / 2),
@@ -46,9 +53,9 @@ define(['engine/world','engine/draw'],function(world,draw){
 	return {
 		setDimensions:	setDimensions,
 		getDimensions:	getDimensions,
-		get:			getPosition,
+		getPosition:	getPosition,
 		move:			move,
 		moveBy:			moveBy,
-		center:			center
+		centerAt:		centerAt
 	};
 });

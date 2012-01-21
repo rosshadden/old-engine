@@ -1,10 +1,11 @@
-define(function(){
+define(['engine/viewport'],function(viewport){
 	var	self = this,
 		
 		dimensions = {
 			width:	0,
 			height:	0
 		},
+		
 		cell = {
 			width:	0,
 			height:	0
@@ -30,6 +31,7 @@ define(function(){
 				screen:		$('#screen')[0]
 			}
 		},
+		
 		setDimensions = function(width,height,cells){
 			easel.element.screen.width = width;
 			easel.element.screen.height = height;
@@ -38,6 +40,7 @@ define(function(){
 			dimensions.height = height;
 			cell = cells;
 		},
+		
 		backdrop = function(width,height){
 			easel.screen.fillStyle = 'rgba(200,200,200,1)';
 			//easel.screen.clearRect(0,0,width,height);
@@ -98,8 +101,14 @@ define(function(){
 			//	Implementing engine.viewport will affect these 0's.
 			ctx.drawImage(
 				source,
-				0,0,dimensions.width,dimensions.height,
-				0,0,dimensions.width,dimensions.height
+				0,
+				0,
+				dimensions.width,
+				dimensions.height,
+				0 - viewport.getPosition().x,
+				0 - viewport.getPosition().y,
+				dimensions.width,
+				dimensions.height
 			);
 		},
 		cells = function(){
@@ -111,6 +120,7 @@ define(function(){
 				path(0,y,dimensions.width,y,{color:'rgba(0,0,0,.2)'});
 			}
 		};
+		
 	return {
 		Sprite:			Sprite,
 		easel:			easel,

@@ -19,6 +19,9 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 				draw.setDimensions(600,400,world.cell);
 				viewport.setDimensions(600,400);
 				
+				//	For temporary experimentation with browser console.
+				window.viewport = viewport;
+				
 				if($('#engine-cache').length === 0){
 					$('<div>',{
 						id:	'engine-cache'
