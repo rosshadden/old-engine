@@ -78,7 +78,7 @@ define(['engine/world','engine/draw','engine/viewport','entities/entity','engine
 			},
 			
 			start = function(){
-				world.maps.load('empty',main);
+				world.maps.load('map1',main);
 			};
 		
 		return util.extend({

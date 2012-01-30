@@ -1,3 +1,1 @@
-Game Engine.
-
-Built on the HTML5 stack, using modern standards and best practices.
+Multiplayer (eventually) Pong concept, built using a custom game engine.
