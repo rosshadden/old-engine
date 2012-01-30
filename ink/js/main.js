@@ -2,6 +2,9 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 	var
 		game = new Engine({
 			screen:	$('#screen')[0],
+			
+			map:	'map1',
+			
 			init: function(){
 				var self = this;
 
