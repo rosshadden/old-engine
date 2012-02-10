@@ -14,10 +14,6 @@ define(['engine/class','engine/world','engine/draw','engine/util'],function(Base
 			this.spriteIndex = 0;
 			
 			this.currentFrame = 0;
-			
-			/*for(property in properties){
-				this[property] = properties[property];
-			}*/
 		}
 	});
 	

@@ -1,14 +1,14 @@
-require(['jquery','engine/engine','entities/player','entities/ball'],function($,Engine,Player,Ball){
+require(['jquery','engine/engine','entities/paddle','entities/ball'],function($,Engine,Paddle,Ball){
 	var
 		game = new Engine({
 			screen:	$('#screen')[0],
 			
-			map:	'map1',
+			map:	'board',
 			
 			init: function(){
 				var self = this;
 
-				self.world.createEntity(Player,{
+				self.world.createEntity(Paddle,{
 					name:       'paddleOne',
 					position:   self.world.toXY(1,6),
 					velocity: {
@@ -16,7 +16,7 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 						y:  16
 					}
 				});
-				self.world.createEntity(Player,{
+				self.world.createEntity(Paddle,{
 					name:       'paddleTwo',
 					position:   self.world.toXY(22,6)
 				});
@@ -43,6 +43,8 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 						this.world.entities.paddleTwo.move(1);
 					}
 				}
+				
+				this.world.entities.ball.ai();
 			},
 			paint: function(){}
 		});
@@ -61,12 +63,6 @@ require(['jquery','engine/engine','entities/player','entities/ball'],function($,
 	//	DEBUGGING
 		game.bind.key('shift + graveaccent',function(){
 			console.log(game.input.keyboard.activeKeys());
-		});
-		game.bind.key('shift + 1',function(){
-			game.world.maps.load('empty');
-		});
-		game.bind.key('shift + 2',function(){
-			game.world.maps.load('map1');
 		});
 	////////////////////////////////
 	

@@ -81,10 +81,22 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 				return output;
 			})(properties.sequence || 'linear');
 		},
+		
+		ai:		function(a){
+			a = a || 2;
+			var direction = [
+				Math.floor(Math.random() * 3) - 1,
+				Math.floor(Math.random() * 3) - 1
+			];
+			
+			this.move(direction[0] * Math.floor(Math.random() * a),direction[1] * Math.floor(Math.random() * a));
+		},
+		
 		move:	function(x,y){
 			this.position.x += this.velocity.x * x;
 			this.position.y += this.velocity.y * y;
 		},
+		
 		draw:	function(){
 			draw.sprite({
 				src:		this.sprite,
