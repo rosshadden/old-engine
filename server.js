@@ -30,6 +30,7 @@ var	io,
 			app.use(auth.configure(app));
 			app.use(app.router);
 			app.use(express.static(__dirname + '/ink'));
+			app.use(require('stylus').middleware({src: __dirname + '/ink'}));
 		});
 		
 		app.listen(+(process.argv[2] || process.env.PORT || 80));
