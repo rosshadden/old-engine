@@ -1,5 +1,5 @@
 define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,world,draw,util){
-	var Player = Entity.extend({
+	var Paddle = Entity.extend({
 		init:	function(properties){
 			this._super(properties);
 			
@@ -36,5 +36,5 @@ define(['./entity','engine/world','engine/draw','engine/util'],function(Entity,w
 		}
 	});
 	
-	return Player;
+	return Paddle;
 });

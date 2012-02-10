@@ -1,6 +1,7 @@
 var	io,
 	express = require('express'),
 	app = express.createServer(),
+	stylus = require('stylus'),
 	Session = require('connect').middleware.session.Session,
 	sessionStore = new express.session.MemoryStore(),
 	parseCookie = require('connect').utils.parseCookie,
@@ -30,6 +31,7 @@ var	io,
 			app.use(auth.configure(app));
 			app.use(app.router);
 			app.use(express.static(__dirname + '/ink'));
+			app.use(stylus.middleware({src: __dirname + '/ink'}));
 		});
 		
 		app.listen(+(process.argv[2] || process.env.PORT || 80));
